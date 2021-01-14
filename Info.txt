@@ -6,4 +6,9 @@ Tinder - get new gf
   gf types:
     Goth gf
     Soviet gf
+<<<<<<< HEAD
     Asian gf
+=======
+    Hatsune gf
+    Furry gf
+>>>>>>> e4b2d2deec6ebfdfc2f9585b315f8453bd443dee
