@@ -1,4 +1,9 @@
 Apps:
 Gamazon - gifts
 Contacts - gfs
-messanger - clicker
+Messanger - clicker
+Tinder - get new gf
+  gf types:
+    Goth gf
+    Soviet gf
+    Hatsune gf
