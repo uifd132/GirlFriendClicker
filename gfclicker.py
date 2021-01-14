@@ -13,6 +13,7 @@ pygame.display.set_caption("Girlfriend Clicker: The Game")
 #Images load here
 bg = pygame.image.load('images/screen.png')
 amazingImage = pygame.image.load('images/amazing.png')
+messagesImage = pygame.image.load('images/messages.png')
 
 class apps(object):
     def __init__(self):
@@ -21,15 +22,20 @@ class apps(object):
     def drawAmazing(self,win):
         if self.got:
             win.blit(amazingImage,(55,157))
+    def drawMessages(self,win):
+        if self.got:
+            win.blit(messagesImage,(238,157))
 
 
 def drawStuff():
     win.blit(bg, (0,0))
     amazing.drawAmazing(win)
+    messages.drawMessages(win)
     pygame.display.update()
 
 
 amazing = apps()
+messages = apps()
 
 while running:
 
