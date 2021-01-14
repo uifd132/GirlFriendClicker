@@ -12,8 +12,8 @@ pygame.display.set_caption("Girlfriend Clicker: The Game")
 
 #Images load here
 bg = pygame.image.load('images/screen.png')
-amazingImage = pygame.image.load('images/amazing.png')
-messagesImage = pygame.image.load('images/messages.png')
+amazingImage = pygame.image.load('apps/amazing.png')
+messagesImage = pygame.image.load('apps/messages.png')
 
 class apps(object):
     def __init__(self):
