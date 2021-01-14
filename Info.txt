@@ -1,0 +1,4 @@
+Apps:
+Gamazon - gifts
+Contacts - gfs
+messanger - clicker
