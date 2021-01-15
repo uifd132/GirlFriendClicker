@@ -19,20 +19,28 @@ homeScreen = pygame.image.load('images/apps/bg.png')
 
 
 # Draws the screen and objects
+
+def drawBorder():
+    win.blit(border, (0,0))
+    pygame.display.update()
+    
 def drawHomeScreen():
     win.blit(wallpaper, (0,0))
     amazing.drawAmazing(win)
     messages.drawMessages(win)
     lickr.drawLickr(win)
-
-def drawBorder():
-    win.blit(border, (0,0))
-    pygame.display.update()
+    drawBorder()
+    
+def clearScreen():
+    win.blit(wallpaper, (0,0))
+    drawBorder()
 
 amazing = apps()
 messages = apps()
 lickr = apps()
 wallpaper = homeScreen
+
+drawHomeScreen()
 
 while running:
 
@@ -42,9 +50,6 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-
-    drawHomeScreen()
-    drawBorder()
     
 pygame.quit()
 quit()
