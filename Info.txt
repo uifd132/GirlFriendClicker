@@ -12,3 +12,6 @@ Tinder - get new gf
     Hatsune gf
     Furry gf
 >>>>>>> e4b2d2deec6ebfdfc2f9585b315f8453bd443dee
+
+App Screen Size = 600x741
+Window Size = 600x950
