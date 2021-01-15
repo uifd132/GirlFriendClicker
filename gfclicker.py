@@ -25,6 +25,7 @@ homeScreen = pygame.image.load('images/apps/bg.png')
 amazingImage = pygame.image.load('images/apps/amazing.png')
 messagesImage = pygame.image.load('images/apps/messages.png')
 lickrImage = pygame.image.load('images/apps/lickr.png')
+amazingBackground = pygame.image.load('images/amazing/background.png')
 
 # Creates the int for the score and the scorecard to blit
 affection = 0
@@ -49,6 +50,10 @@ def drawHomeScreen():
     amazing.drawApps(win)
     messages.drawApps(win)
     lickr.drawApps(win)
+    drawBorder()
+
+def drawAmazing():
+    win.blit(wallpaper, (0,209))
     drawBorder()
 
 def clearScreen():
@@ -81,6 +86,8 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if amazing.isOver(pos):
                 clearScreen()
+                wallpaper = amazingBackground
+                drawAmazing()
 
 
 
