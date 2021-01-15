@@ -15,3 +15,4 @@ Tinder - get new gf
 
 App Screen Size = 600x741
 Window Size = 600x950
+Home = 127x107 (234,839)
