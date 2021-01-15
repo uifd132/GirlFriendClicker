@@ -38,12 +38,13 @@ while running:
 
     clock.tick(30)
 
-    #closes game
+    #closses game
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
     drawHomeScreen()
     drawBorder()
-
-pygame.quit
+    
+pygame.quit()
+quit()
