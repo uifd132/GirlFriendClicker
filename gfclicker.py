@@ -2,7 +2,7 @@ import pygame
 import numpy as np
 import pygame.freetype
 from name_generator import gen_name
-from classes import apps
+from classes import button
 pygame.init()
 print("Game loading lol if u see this ur gay lol omg lolololol terminal user lol")
 
@@ -48,9 +48,9 @@ def drawScoreCard(win, text, size, x, y):
 
 def drawHomeScreen():
     win.blit(wallpaper, (0,0))
-    amazing.drawApps(win)
-    messages.drawApps(win)
-    lickr.drawApps(win)
+    amazing.drawButton(win)
+    messages.drawButton(win)
+    lickr.drawButton(win)
     drawBorder()
 
 def drawAmazing():
@@ -64,9 +64,9 @@ def clearScreen():
     win.blit(wallpaper, (0,0))
     drawBorder()
 
-amazing = apps(238,157,amazingImage)
-messages = apps(55,157,messagesImage)
-lickr = apps(417,157,lickrImage)
+amazing = button(238,157,amazingImage)
+messages = button(55,157,messagesImage)
+lickr = button(417,157,lickrImage)
 wallpaper = homeScreen
 drawHomeScreen()
 currentScreen = "home"
@@ -95,7 +95,6 @@ while running:
 
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "messages")):
             affection += 1
-            print(str(affection))
             drawBorder()
 
 

@@ -9,14 +9,14 @@ appWidth = 124
 appHeight = 124
 
 # Creates, draws, and determines if the cursor is over app
-class apps:
+class button:
     def __init__(self,x,y,image):
         self.got = True
         self.x = x
         self.y = y
         self.image = image
 
-    def drawApps(self,win):
+    def drawButton(self,win):
         if self.got:
             win.blit(self.image,(self.x,self.y))
 
