@@ -52,8 +52,8 @@ def drawHomeScreen():
     lickr.drawApps(win)
     drawBorder()
 
-def drawAmazing():
-    win.blit(wallpaper, (0,209))
+def drawAmazing():    
+    win.blit(amazingBackground, (0,143))
     drawBorder()
 
 def clearScreen():
@@ -65,6 +65,7 @@ messages = apps(55,157,messagesImage)
 lickr = apps(417,157,lickrImage)
 wallpaper = homeScreen
 drawHomeScreen()
+currentScreen = "home"
 
 while running:
 
@@ -83,11 +84,10 @@ while running:
             running = False
 
         #Checks for clicks
-        if event.type == pygame.MOUSEBUTTONDOWN:
+        if ((event.type == pygame.MOUSEBUTTONDOWN) & (currentScreen == "home")):
             if amazing.isOver(pos):
-                clearScreen()
-                wallpaper = amazingBackground
                 drawAmazing()
+                currentScreen = "amazing"
 
 
 
