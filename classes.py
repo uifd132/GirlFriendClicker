@@ -5,16 +5,24 @@ amazingImage = pygame.image.load('images/apps/amazing.png')
 messagesImage = pygame.image.load('images/apps/messages.png')
 lickrImage = pygame.image.load('images/apps/lickr.png')
 
-class apps:
-    def __init__(self):
-        self.got = True
+appWidth = 124
+appHeight = 124
 
-    def drawAmazing(self,win):
+# Creates, draws, and determines if the cursor is over app
+class apps:
+    def __init__(self,x,y,image):
+        self.got = True
+        self.x = x
+        self.y = y
+        self.image = image
+
+    def drawApps(self,win):
         if self.got:
-            win.blit(amazingImage,(238,157))
-    def drawMessages(self,win):
-        if self.got:
-            win.blit(messagesImage,(55,157))
-    def drawLickr(self,win):
-        if self.got:
-            win.blit(lickrImage,(417,157))
+            win.blit(self.image,(self.x,self.y))
+
+    def isOver(self, pos):
+        if pos[0] > self.x and pos[0] < self.x + appWidth:
+            if pos[1] > self.y and pos[1] < self.y + appHeight:
+                return True
+
+        return False

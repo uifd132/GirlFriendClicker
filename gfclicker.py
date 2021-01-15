@@ -16,6 +16,9 @@ pygame.display.set_caption("Girlfriend Clicker: The Game")
 # Images load here
 border = pygame.image.load('images/apps/screen.png')
 homeScreen = pygame.image.load('images/apps/bg.png')
+amazingImage = pygame.image.load('images/apps/amazing.png')
+messagesImage = pygame.image.load('images/apps/messages.png')
+lickrImage = pygame.image.load('images/apps/lickr.png')
 
 
 # Draws the screen and objects
@@ -23,21 +26,21 @@ homeScreen = pygame.image.load('images/apps/bg.png')
 def drawBorder():
     win.blit(border, (0,0))
     pygame.display.update()
-    
+
 def drawHomeScreen():
     win.blit(wallpaper, (0,0))
-    amazing.drawAmazing(win)
-    messages.drawMessages(win)
-    lickr.drawLickr(win)
+    amazing.drawApps(win)
+    messages.drawApps(win)
+    lickr.drawApps(win)
     drawBorder()
-    
+
 def clearScreen():
     win.blit(wallpaper, (0,0))
     drawBorder()
 
-amazing = apps()
-messages = apps()
-lickr = apps()
+amazing = apps(238,157,amazingImage)
+messages = apps(55,157,messagesImage)
+lickr = apps(417,157,lickrImage)
 wallpaper = homeScreen
 
 drawHomeScreen()
@@ -46,10 +49,17 @@ while running:
 
     clock.tick(30)
 
-    #closses game
+    # Closes game
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    
+            
+    # Detects click for amazon
+    pos = pygame.mouse.get_pos()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        if amazing.isOver(pos):
+            print("clicked the button")
+
+
 pygame.quit()
 quit()
