@@ -83,17 +83,17 @@ while running:
             running = False
 
         #Checks for click amazing
-        if ((event.type == pygame.MOUSEBUTTONDOWN) & (currentScreen == "home")):
+        if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "home")):
             if amazing.isOver(pos):
                 drawAmazing()
                 currentScreen = "amazing"
 
-        if ((event.type == pygame.MOUSEBUTTONDOWN) & (currentScreen == "home")):
+        if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "home")):
             if messages.isOver(pos):
                 drawMessages()
                 currentScreen = "messages"
 
-        if ((event.type == pygame.MOUSEBUTTONDOWN) & (currentScreen == "messages")):
+        if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "messages")):
             affection += 1
             print(str(affection))
             drawBorder()
