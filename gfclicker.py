@@ -14,21 +14,25 @@ win = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption("Girlfriend Clicker: The Game")
 
 # Images load here
-bg = pygame.image.load('images/apps/screen.png')
+border = pygame.image.load('images/apps/screen.png')
+homeScreen = pygame.image.load('images/apps/bg.png')
 
 
 # Draws the screen and objects
-def drawStuff():
-    win.blit(bg, (0,0))
+def drawHomeScreen():
+    win.blit(wallpaper, (0,0))
     amazing.drawAmazing(win)
     messages.drawMessages(win)
     lickr.drawLickr(win)
-    pygame.display.update()
 
+def drawBorder():
+    win.blit(border, (0,0))
+    pygame.display.update()
 
 amazing = apps()
 messages = apps()
 lickr = apps()
+wallpaper = homeScreen
 
 while running:
 
@@ -39,6 +43,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    drawStuff()
+    drawHomeScreen()
+    drawBorder()
 
 pygame.quit
