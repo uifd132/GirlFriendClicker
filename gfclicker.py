@@ -69,16 +69,17 @@ while running:
     drawScoreCard()
     
     
-    # Closes game
+        
+    pos = pygame.mouse.get_pos()
     for event in pygame.event.get():
+        # Closes game
         if event.type == pygame.QUIT:
             running = False
-            
-    # Detects click for amazon
-    pos = pygame.mouse.get_pos()
-    if event.type == pygame.MOUSEBUTTONDOWN:
-        if amazing.isOver(pos):
-            clearScreen()
+        
+        #Checks for clicks
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if amazing.isOver(pos):
+                clearScreen()
             
 
 
