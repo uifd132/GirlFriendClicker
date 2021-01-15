@@ -33,15 +33,17 @@ affection = 0
 def drawBorder():
     win.blit(border, (0,0))
     win.blit(notificationBar, (0,0))
-    drawScoreCard()
+    drawScoreCard(win,str(affection),24,116,116)
     pygame.display.update()
 
-def drawScoreCard():
-    textSurface, rect = font.render(str(affection), (0,0,0))
-    win.blit(textSurface, (110,109))
-    print("REFRESHING SCORECARD")
+def drawScoreCard(win, text, size, x, y):
+    font = pygame.font.Font('fonts/OpenSans-Regular.ttf', size)
+    text_surface = font.render(text, True, (0,0,0))
+    text_rect = text_surface.get_rect()
+    text_rect.midleft = (x, y)
+    win.blit(text_surface, text_rect)
     pygame.display.update()
-    
+
 def drawHomeScreen():
     win.blit(wallpaper, (0,0))
     amazing.drawApps(win)
@@ -62,25 +64,24 @@ drawHomeScreen()
 while running:
 
     clock.tick(1)
-    
+
     #attempt to update scorecard
     affection += 1
     print(str(affection))
-    drawScoreCard()
-    
-    
-        
+    drawBorder()
+
+
     pos = pygame.mouse.get_pos()
     for event in pygame.event.get():
         # Closes game
         if event.type == pygame.QUIT:
             running = False
-        
+
         #Checks for clicks
         if event.type == pygame.MOUSEBUTTONDOWN:
             if amazing.isOver(pos):
                 clearScreen()
-            
+
 
 
 pygame.quit()
