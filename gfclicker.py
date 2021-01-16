@@ -1,8 +1,9 @@
 import pygame
 import numpy as np
 import pygame.freetype
-from name_generator import gen_name
+from name_generator import nameGen
 from classes import button
+from classes import girl
 pygame.init()
 print("Game loading lol if u see this ur gay lol omg lolololol terminal user lol")
 
@@ -18,7 +19,8 @@ pygame.display.set_caption("Girlfriend Clicker: The Game")
 
 #(this bit is for the font/scorecard)
 black = (0,0,0)
-font = pygame.freetype.Font('text/COMIC.TTF', 24)
+# Creates the int for the score and the scorecard to blit
+affection = 0
 
 # Images load here
 border = pygame.image.load('images/apps/screen.png')
@@ -30,22 +32,24 @@ lickrImage = pygame.image.load('images/apps/lickr.png')
 amazingBackground = pygame.image.load('images/amazing/background.png')
 messagesBackground = pygame.image.load('images/messages/background.png')
 lickrBackground = pygame.image.load('images/lickr/background.png')
+jenniferAndBeckyImage = pygame.image.load('images/girls/JenniferAndBecky.png')
 
-# Creates the int for the score and the scorecard to blit
-affection = 0
 
 # Draws the screen and objects
 def drawBorder():
     win.blit(border, (0,0))
     win.blit(notificationBar, (0,0))
-    drawScoreCard(win,str(affection),24,116,116)
+    drawText(win,str(affection),24,116,116,"left")
     pygame.display.update()
 
-def drawScoreCard(win, text, size, x, y):
+def drawText(win, text, size, x, y, align):
     font = pygame.font.Font('fonts/OpenSans-Regular.ttf', size)
-    text_surface = font.render(text, True, (0,0,0))
+    text_surface = font.render(text, True, black)
     text_rect = text_surface.get_rect()
-    text_rect.midleft = (x, y)
+    if align == "left":
+        text_rect.midleft = (x,y)
+    elif align == "center":
+        text_rect.center = (x,y)
     win.blit(text_surface, text_rect)
     pygame.display.update()
 
@@ -66,6 +70,8 @@ def drawMessages():
 
 def drawLickr():
     win.blit(lickrBackground, (0,143))
+    jenniferAndBecky.drawGirl(win)
+    drawText(win,jenniferAndBecky.name,30,300,800,"center")
     drawBorder()
 
 def clearScreen():
@@ -80,6 +86,7 @@ lickr = button(417,157,appWidth,appHeight)
 lickr.image = lickrImage
 messagesButton = button(100,211,400,400)
 homeButton = button(233,837,127,107)
+jenniferAndBecky = girl(nameGen(),jenniferAndBeckyImage,2)
 wallpaper = homeScreen
 clickCount = 0
 

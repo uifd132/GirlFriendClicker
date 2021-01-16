@@ -16,3 +16,7 @@ Tinder - get new gf
 App Screen Size = 600x741 - Draw at (0,143)
 Window Size = 600x950
 Home = 127x107 (234,839)
+
+I think Lickr app should have two buttons on the sides to scroll between girls
+There should be a list of girls that the buttons scroll through and each girl
+should have their own description detailing what they do and how they effect your clicks
