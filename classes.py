@@ -5,8 +5,6 @@ amazingImage = pygame.image.load('images/apps/amazing.png')
 messagesImage = pygame.image.load('images/apps/messages.png')
 lickrImage = pygame.image.load('images/apps/lickr.png')
 
-appWidth = 124
-appHeight = 124
 
 # Creates, draws, and determines if the cursor is over app
 class button:
