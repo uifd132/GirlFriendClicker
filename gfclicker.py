@@ -1,9 +1,10 @@
 import pygame
 import numpy as np
-import pygame.freetype
+import time
 from name_generator import nameGen
 from classes import button
 from classes import girl
+
 pygame.init()
 print("Game loading lol if u see this ur gay lol omg lolololol terminal user lol")
 
@@ -14,6 +15,8 @@ appWidth = 124
 appHeight = 124
 running = True
 clock = pygame.time.Clock()
+t = time.localtime()
+currentTime = time.strftime("%H:%M", t)
 win = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption("Girlfriend Clicker: The Game")
 
@@ -39,7 +42,8 @@ jenniferAndBeckyImage = pygame.image.load('images/girls/JenniferAndBecky.png')
 def drawBorder():
     win.blit(border, (0,0))
     win.blit(notificationBar, (0,0))
-    drawText(win,str(affection),24,116,116,"left")
+    drawText(win,str(affection),23,111,116,"left")
+    drawText(win,currentTime,23,12,116,"left")
     pygame.display.update()
 
 def drawText(win, text, size, x, y, align):
