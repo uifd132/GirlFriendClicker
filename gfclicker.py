@@ -81,6 +81,7 @@ lickr.image = lickrImage
 messagesButton = button(100,211,400,400)
 homeButton = button(233,837,127,107)
 wallpaper = homeScreen
+clickCount = 0
 
 drawHomeScreen()
 currentScreen = "home"
@@ -101,6 +102,7 @@ while running:
             if homeButton.isOver(pos):
                 clearScreen()
                 drawHomeScreen()
+                clickCount = 0
                 currentScreen = "home"
 
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "home")):
@@ -120,7 +122,8 @@ while running:
 
         # Main clicking function of button in messages
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "messages")):
-            if messagesButton.isOver(pos):
+            clickCount +=1
+            if messagesButton.isOver(pos) & (clickCount >= 2):
                 affection += 1
                 drawBorder()
 
