@@ -29,8 +29,6 @@ messagesImage = pygame.image.load('images/apps/messages.png')
 lickrImage = pygame.image.load('images/apps/lickr.png')
 amazingBackground = pygame.image.load('images/amazing/background.png')
 messagesBackground = pygame.image.load('images/messages/background.png')
-messagesButtonHit = pygame.image.load('images/messages/messagesButton.png')
-homeButtonImage = pygame.image.load('images/apps/homeButton.png')
 
 # Creates the int for the score and the scorecard to blit
 affection = 0
@@ -68,12 +66,16 @@ def clearScreen():
     win.blit(wallpaper, (0,0))
     drawBorder()
 
-amazing = button(238,157,appWidth,appHeight,amazingImage)
-messages = button(55,157,appWidth,appHeight,messagesImage)
-lickr = button(417,157,appWidth,appHeight,lickrImage)
-messagesButton = button(100,211,400,400,messagesButtonHit)
-homeButton = button(233,837,127,107,homeButtonImage)
+amazing = button(238,157,appWidth,appHeight)
+amazing.image = amazingImage
+messages = button(55,157,appWidth,appHeight)
+messages.image = messagesImage
+lickr = button(417,157,appWidth,appHeight)
+lickr.image = lickrImage
+messagesButton = button(100,211,400,400)
+homeButton = button(233,837,127,107)
 wallpaper = homeScreen
+
 drawHomeScreen()
 currentScreen = "home"
 
