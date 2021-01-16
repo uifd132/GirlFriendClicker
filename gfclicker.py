@@ -6,7 +6,7 @@ from classes import button
 from classes import girl
 
 pygame.init()
-print("Game loading lol if u see this ur gay lol omg lolololol terminal user lol")
+print("Game loading lol if u see this ur a gay terminal user lol")
 
 # Important variables
 screenWidth = 600
@@ -23,7 +23,7 @@ pygame.display.set_caption("Girlfriend Clicker: The Game")
 #(this bit is for the font/scorecard)
 black = (0,0,0)
 
-# Creates the int for the score and the scorecard to blit
+# Creates the int for the score and the gf multiplier
 affectionMultiplier = 1
 affection = 0
 
