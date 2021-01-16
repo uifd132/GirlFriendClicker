@@ -9,6 +9,8 @@ print("Game loading lol if u see this ur gay lol omg lolololol terminal user lol
 # Important variables
 screenWidth = 600
 screenHeight = 950
+appWidth = 124
+appHeight = 124
 running = True
 clock = pygame.time.Clock()
 win = pygame.display.set_mode((screenWidth, screenHeight))
@@ -27,6 +29,7 @@ messagesImage = pygame.image.load('images/apps/messages.png')
 lickrImage = pygame.image.load('images/apps/lickr.png')
 amazingBackground = pygame.image.load('images/amazing/background.png')
 messagesBackground = pygame.image.load('images/messages/background.png')
+messagesButtonHit = pygame.image.load('images/messages/messagesButton.png')
 
 # Creates the int for the score and the scorecard to blit
 affection = 0
@@ -51,6 +54,7 @@ def drawHomeScreen():
     amazing.drawButton(win)
     messages.drawButton(win)
     lickr.drawButton(win)
+    messagesButton.drawButton(win)
     drawBorder()
 
 def drawAmazing():
@@ -64,9 +68,10 @@ def clearScreen():
     win.blit(wallpaper, (0,0))
     drawBorder()
 
-amazing = button(238,157,amazingImage)
-messages = button(55,157,messagesImage)
-lickr = button(417,157,lickrImage)
+amazing = button(238,157,appWidth,appHeight,amazingImage)
+messages = button(55,157,appWidth,appHeight,messagesImage)
+lickr = button(417,157,appWidth,appHeight,lickrImage)
+messagesButton = button(100,211,400,400,messagesButtonHit)
 wallpaper = homeScreen
 drawHomeScreen()
 currentScreen = "home"
@@ -94,8 +99,9 @@ while running:
                 currentScreen = "messages"
 
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "messages")):
-            affection += 1
-            drawBorder()
+            if messagesButton.isOver(pos):
+                affection += 1
+                drawBorder()
 
 
 pygame.quit()
