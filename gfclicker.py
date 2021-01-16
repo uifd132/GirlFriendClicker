@@ -16,13 +16,15 @@ appHeight = 124
 running = True
 clock = pygame.time.Clock()
 t = time.localtime()
-currentTime = time.strftime("%H:%M", t)
+currentTime = time.strftime("%I:%M", t)
 win = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption("Girlfriend Clicker: The Game")
 
 #(this bit is for the font/scorecard)
 black = (0,0,0)
+
 # Creates the int for the score and the scorecard to blit
+affectionMultiplier = 1
 affection = 0
 
 # Images load here
@@ -43,7 +45,7 @@ def drawBorder():
     win.blit(border, (0,0))
     win.blit(notificationBar, (0,0))
     drawText(win,str(affection),23,111,116,"left")
-    drawText(win,currentTime,23,12,116,"left")
+    drawText(win,currentTime,23,41,116,"center")
     pygame.display.update()
 
 def drawText(win, text, size, x, y, align):
@@ -135,7 +137,16 @@ while running:
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "messages")):
             clickCount +=1
             if messagesButton.isOver(pos) & (clickCount >= 2):
-                affection += 1
+                affection += affectionMultiplier
+                drawBorder()
+
+        # Buys new girlfriend in Lickr
+        if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "lickr")):
+            clickCount +=1
+            if jenniferAndBecky.isOver(pos) & (clickCount >= 2) & (affection >= 10) and not (jenniferAndBecky.got):
+                jenniferAndBecky.got = True
+                affection -= 10
+                drawLickr()
                 drawBorder()
 
 

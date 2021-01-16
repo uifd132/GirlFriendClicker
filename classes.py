@@ -37,8 +37,8 @@ class girl:
             win.blit(self.image,(50,225))
 
     def isOver(self,pos):
-        if pos[0] > self.x and pos[0] < self.x + self.width:
-            if pos[1] > self.y and pos[1] < self.y + self.height:
+        if pos[0] > 50 and pos[0] < 50 + girlWidth:
+            if pos[1] > 225 and pos[1] < 225 + girlHeight:
                 return True
 
         return False
