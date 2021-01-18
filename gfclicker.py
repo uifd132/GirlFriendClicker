@@ -145,6 +145,7 @@ while running:
             clickCount +=1
             if jenniferAndBecky.isOver(pos) & (clickCount >= 2) & (affection >= 10) and not (jenniferAndBecky.got):
                 jenniferAndBecky.got = True
+                affectionMultiplier *= jenniferAndBecky.multiplier
                 affection -= 10
                 drawLickr()
                 drawBorder()
