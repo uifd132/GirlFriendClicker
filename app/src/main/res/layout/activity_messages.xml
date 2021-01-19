@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MessagesActivity">
+
+    <Button
+        android:id="@+id/messageClickButton"
+        android:layout_width="245dp"
+        android:layout_height="244dp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/roundstyle" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="158dp"
+        android:layout_height="39dp"
+        android:layout_below="@+id/messageClickButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="125dp"
+        android:layout_marginLeft="125dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginRight="128dp"
+        android:gravity="center"
+        android:text="Message Example Text"
+        android:textColor="@color/black" />
+
+
+</RelativeLayout>
