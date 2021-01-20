@@ -10,9 +10,6 @@ class AmazingActivity : AppCompatActivity() {
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_amazing)
 
-        val actionBar = supportActionBar
-
-        actionBar!!.title = "Amazing"
 
     }
 }
