@@ -41,4 +41,7 @@ class girl:
             if pos[1] > 225 and pos[1] < 225 + girlHeight:
                 return True
 
+    def setMulti(self,mult):
+        self.multiplier *= mult
+
         return False

@@ -4,6 +4,7 @@ import time
 from name_generator import nameGen
 from classes import button
 from classes import girl
+from girl_generator import girlGen
 
 pygame.init()
 print("Game loading lol if u see this ur a gay terminal user lol")
@@ -76,8 +77,9 @@ def drawMessages():
 
 def drawLickr():
     win.blit(lickrBackground, (0,143))
-    jenniferAndBecky.drawGirl(win)
-    drawText(win,jenniferAndBecky.name,30,300,800,"center")
+    if not jenniferAndBecky.got:
+        jenniferAndBecky.drawGirl(win)
+        drawText(win,jenniferAndBecky.name+": "+str(girl_cost),30,300,800,"center")
     drawBorder()
 
 def clearScreen():
@@ -92,9 +94,11 @@ lickr = button(417,157,appWidth,appHeight)
 lickr.image = lickrImage
 messagesButton = button(100,211,400,400)
 homeButton = button(233,837,127,107)
-jenniferAndBecky = girl(nameGen(),jenniferAndBeckyImage,2)
 wallpaper = homeScreen
 clickCount = 0
+girl_cost = 100
+girl_bought = 0
+jenniferAndBecky = girlGen(girl_bought)
 
 drawHomeScreen()
 currentScreen = "home"
@@ -137,15 +141,18 @@ while running:
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "messages")):
             clickCount +=1
             if messagesButton.isOver(pos) & (clickCount >= 2):
-                affection += affectionMultiplier
+                affection += int(np.floor(affectionMultiplier))
                 drawBorder()
 
         # Buys new girlfriend in Lickr
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "lickr")):
             clickCount +=1
-            if jenniferAndBecky.isOver(pos) & (clickCount >= 2) & (affection >= 10) and not (jenniferAndBecky.got):
+            if jenniferAndBecky.isOver(pos) & (clickCount >= 2) & (affection >= girl_cost) and not (jenniferAndBecky.got):
                 jenniferAndBecky.got = True
-                affection -= 10
+                affection -= girl_cost
+                girl_cost *= 2.5
+                affectionMultiplier = affectionMultiplier*jenniferAndBecky.multiplier
+                girl_bought += 1
                 drawLickr()
                 drawBorder()
 
