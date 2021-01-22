@@ -147,7 +147,7 @@ while running:
         # Buys new girlfriend in Lickr
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "lickr")):
             clickCount +=1
-            if jenniferAndBecky.isOver(pos) & (clickCount >= 2) & (affection >= girl_cost) and not (jenniferAndBecky.got):
+            if (jenniferAndBecky.isOver(pos)) & (clickCount >= 2) & (affection >= girl_cost) & (not (jenniferAndBecky.got)):
                 jenniferAndBecky.got = True
                 affection -= girl_cost
                 girl_cost *= 2.5
