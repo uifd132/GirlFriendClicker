@@ -39,6 +39,10 @@ amazingBackground = pygame.image.load('images/amazing/background.png')
 messagesBackground = pygame.image.load('images/messages/background.png')
 lickrBackground = pygame.image.load('images/lickr/background.png')
 jenniferAndBeckyImage = pygame.image.load('images/girls/JenniferAndBecky.png')
+gifts = pygame.image.load('images/amazing/multi_button.png')
+gifts_sel = pygame.image.load('images/amazing/multi_button_sel.png')
+toys = pygame.image.load('images/amazing/bot_button.png')
+toys_sel = pygame.image.load('images/amazing/bot_button_sel.png')
 
 
 # Draws the screen and objects
@@ -67,8 +71,15 @@ def drawHomeScreen():
     lickr.drawButton(win)
     drawBorder()
 
-def drawAmazing():
-    win.blit(amazingBackground, (0,143))
+def drawAmazing(toys_on):
+    if not toys_on:
+        win.blit(amazingBackground, (0,143))
+        win.blit(gifts_sel, (153,174))
+        win.blit(toys, (313,174))
+    else:
+        win.blit(amazingBackground, (0,143))
+        win.blit(gifts, (153,174))
+        win.blit(toys_sel, (313,174))
     drawBorder()
 
 def drawMessages():
@@ -100,13 +111,15 @@ girl_cost = 100
 girl_bought = 0
 time_ch = 0
 jenniferAndBecky = girlGen(girl_bought)
-
+gifts_button = button(153,174,157,35)
+toys_button = button(313,174,135,35)
+amazing_tab = False
 drawHomeScreen()
 currentScreen = "home"
 
 while running:
 
-    clock.tick(60)
+    dt = clock.tick(60)
 
 
     pos = pygame.mouse.get_pos()
@@ -116,7 +129,6 @@ while running:
             running = False
             
         #Clock update every minute
-        dt = clock.tick(60)
         time_ch += dt
         
         if time_ch > 1000:
@@ -132,10 +144,11 @@ while running:
                 drawHomeScreen()
                 clickCount = 0
                 currentScreen = "home"
-
+                amazing_tab = False
+                
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "home")):
             if amazing.isOver(pos):
-                drawAmazing()
+                drawAmazing(amazing_tab)
                 currentScreen = "amazing"
 
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "home")):
@@ -166,6 +179,15 @@ while running:
                 girl_bought += 1
                 drawLickr()
                 drawBorder()
+                
+        # Changes tabs to buy in Amazing app
+        if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "amazing")):
+            if amazing_tab & toys_button.isOver(pos):
+                drawAmazing(amazing_tab)
+                amazing_tab = False
+            elif gifts_button.isOver(pos):
+                drawAmazing(amazing_tab)
+                amazing_tab = True
 
 pygame.quit()
 quit()
