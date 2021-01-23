@@ -21,7 +21,6 @@ class button:
         if pos[0] > self.x and pos[0] < self.x + self.width:
             if pos[1] > self.y and pos[1] < self.y + self.height:
                 return True
-
         return False
 
 class girl:
@@ -40,8 +39,7 @@ class girl:
         if pos[0] > 50 and pos[0] < 50 + girlWidth:
             if pos[1] > 225 and pos[1] < 225 + girlHeight:
                 return True
+        return False
 
     def setMulti(self,mult):
         self.multiplier *= mult
-
-        return False

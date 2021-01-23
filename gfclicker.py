@@ -98,6 +98,7 @@ wallpaper = homeScreen
 clickCount = 0
 girl_cost = 100
 girl_bought = 0
+time_ch = 0
 jenniferAndBecky = girlGen(girl_bought)
 
 drawHomeScreen()
@@ -113,6 +114,16 @@ while running:
         # Closes game
         if event.type == pygame.QUIT:
             running = False
+            
+        #Clock update every minute
+        dt = clock.tick(60)
+        time_ch += dt
+        
+        if time_ch > 1000:
+            t = time.localtime()
+            currentTime = time.strftime("%I:%M", t)
+            drawBorder()
+            time_ch = 0
 
         # Checks for clicks on apps and opens them
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen != "home")):
@@ -155,7 +166,6 @@ while running:
                 girl_bought += 1
                 drawLickr()
                 drawBorder()
-
 
 pygame.quit()
 quit()
