@@ -43,6 +43,9 @@ gifts = pygame.image.load('images/amazing/multi_button.png')
 gifts_sel = pygame.image.load('images/amazing/multi_button_sel.png')
 toys = pygame.image.load('images/amazing/bot_button.png')
 toys_sel = pygame.image.load('images/amazing/bot_button_sel.png')
+display_amazing = pygame.image.load('images/amazing/display.png')
+auto_like = pygame.image.load('images/amazing/auto_like.png')
+
 
 
 # Draws the screen and objects
@@ -72,14 +75,15 @@ def drawHomeScreen():
     drawBorder()
 
 def drawAmazing(toys_on):
+    win.blit(amazingBackground, (0,143))
     if not toys_on:
-        win.blit(amazingBackground, (0,143))
         win.blit(gifts_sel, (153,174))
         win.blit(toys, (313,174))
     else:
-        win.blit(amazingBackground, (0,143))
         win.blit(gifts, (153,174))
         win.blit(toys_sel, (313,174))
+        win.blit(auto_like, (77,260))
+    win.blit(display_amazing, (0,232))
     drawBorder()
 
 def drawMessages():
@@ -116,6 +120,7 @@ toys_button = button(313,174,135,35)
 amazing_tab = False
 drawHomeScreen()
 currentScreen = "home"
+auto_clicker = 0
 
 while running:
 
