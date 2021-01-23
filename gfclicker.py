@@ -157,7 +157,6 @@ while running:
             drawBorder()
         
         if time_ch > 1000:
-            print("Updated Time")
             t = time.localtime()
             currentTime = time.strftime("%I:%M", t)
             drawBorder()
