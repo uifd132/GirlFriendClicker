@@ -1,5 +1,3 @@
-import pygame
-
 girlWidth = 500
 girlHeight = 500
 
@@ -40,6 +38,4 @@ class girl:
             if pos[1] > 225 and pos[1] < 225 + girlHeight:
                 return True
         return False
-
-    def setMulti(self,mult):
-        self.multiplier *= mult
+        

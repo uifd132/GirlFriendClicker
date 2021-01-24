@@ -1,10 +1,8 @@
 import pygame
 import numpy as np
 import time
-from name_generator import nameGen
 from classes import button
-from classes import girl
-from girl_generator import girlGen
+from gameSave import gameState
 
 pygame.init()
 print("Game loading lol if u see this ur a gay terminal user lol")
@@ -25,8 +23,6 @@ pygame.display.set_caption("Girlfriend Clicker: The Game")
 black = (0,0,0)
 
 # Creates the int for the score and the gf multiplier
-affectionMultiplier = 1
-affection = 0
 
 # Images load here
 border = pygame.image.load('images/apps/screen.png')
@@ -39,13 +35,21 @@ amazingBackground = pygame.image.load('images/amazing/background.png')
 messagesBackground = pygame.image.load('images/messages/background.png')
 lickrBackground = pygame.image.load('images/lickr/background.png')
 jenniferAndBeckyImage = pygame.image.load('images/girls/JenniferAndBecky.png')
+gifts = pygame.image.load('images/amazing/multi_button.png')
+gifts_sel = pygame.image.load('images/amazing/multi_button_sel.png')
+toys = pygame.image.load('images/amazing/bot_button.png')
+toys_sel = pygame.image.load('images/amazing/bot_button_sel.png')
+display_amazing = pygame.image.load('images/amazing/display.png')
+auto_like_im = pygame.image.load('images/amazing/auto_like.png')
+buy = pygame.image.load('images/amazing/buy.png')
 
+game = gameState()
 
 # Draws the screen and objects
 def drawBorder():
     win.blit(border, (0,0))
     win.blit(notificationBar, (0,0))
-    drawText(win,str(affection),23,111,116,"left")
+    drawText(win,str(game.affection),23,111,116,"left")
     drawText(win,currentTime,23,41,116,"center")
     pygame.display.update()
 
@@ -67,8 +71,20 @@ def drawHomeScreen():
     lickr.drawButton(win)
     drawBorder()
 
-def drawAmazing():
+def drawAmazing(toys_on):
     win.blit(amazingBackground, (0,143))
+    if (not toys_on):
+        win.blit(gifts_sel, (153,174))
+        win.blit(toys, (313,174))
+    else:
+        win.blit(gifts, (153,174))
+        win.blit(toys_sel, (313,174))
+        win.blit(auto_like_im, (77,260))
+        drawText(win,"Like-Bot", 30, 220, 268, "center")
+        win.blit(buy, (163,295))
+        drawText(win, str(game.auto_like_price[0]), 20, 400, 268, "center")
+        drawText(win, str(game.auto_like[0]), 20, 400, 300, "center")
+    win.blit(display_amazing, (0,232))
     drawBorder()
 
 def drawMessages():
@@ -77,15 +93,16 @@ def drawMessages():
 
 def drawLickr():
     win.blit(lickrBackground, (0,143))
-    if not jenniferAndBecky.got:
-        jenniferAndBecky.drawGirl(win)
-        drawText(win,jenniferAndBecky.name+": "+str(girl_cost),30,300,800,"center")
+    if not game.girl_to_buy[0].got:
+        game.girl_to_buy[0].drawGirl(win)
+        drawText(win,game.girl_to_buy[0].name+": "+str(game.girl_cost),30,300,800,"center")
     drawBorder()
 
 def clearScreen():
     win.blit(wallpaper, (0,0))
     drawBorder()
 
+#buttons
 amazing = button(238,157,appWidth,appHeight)
 amazing.image = amazingImage
 messages = button(55,157,appWidth,appHeight)
@@ -94,19 +111,22 @@ lickr = button(417,157,appWidth,appHeight)
 lickr.image = lickrImage
 messagesButton = button(100,211,400,400)
 homeButton = button(233,837,127,107)
-wallpaper = homeScreen
-clickCount = 0
-girl_cost = 100
-girl_bought = 0
-time_ch = 0
-jenniferAndBecky = girlGen(girl_bought)
+gifts_button = button(153,174,157,35)
+toys_button = button(313,174,135,35)
+buy_button = button(163,295,123,38)
 
-drawHomeScreen()
+#Initialize
+wallpaper = homeScreen
 currentScreen = "home"
+clickCount = 0
+time_ch = 0
+money_ch = 0
+    
+drawHomeScreen()
 
 while running:
 
-    clock.tick(60)
+    dt = clock.tick(60)
 
 
     pos = pygame.mouse.get_pos()
@@ -116,10 +136,16 @@ while running:
             running = False
             
         #Clock update every minute
-        dt = clock.tick(60)
         time_ch += dt
+        money_ch += dt
         
-        if time_ch > 1000:
+        # AutoMoney
+        if money_ch >= 1000:
+            game.affection += game.auto_like[0]
+            money_ch = 0
+            drawBorder()
+        
+        if time_ch > 5000:
             t = time.localtime()
             currentTime = time.strftime("%I:%M", t)
             drawBorder()
@@ -132,10 +158,11 @@ while running:
                 drawHomeScreen()
                 clickCount = 0
                 currentScreen = "home"
-
+                game.toy_tab = False
+                
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "home")):
             if amazing.isOver(pos):
-                drawAmazing()
+                drawAmazing(game.toy_tab)
                 currentScreen = "amazing"
 
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "home")):
@@ -152,20 +179,34 @@ while running:
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "messages")):
             clickCount +=1
             if messagesButton.isOver(pos) & (clickCount >= 2):
-                affection += int(np.floor(affectionMultiplier))
+                game.affection += int(np.floor(game.affectionMultiplier))
                 drawBorder()
 
         # Buys new girlfriend in Lickr
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "lickr")):
             clickCount +=1
-            if (jenniferAndBecky.isOver(pos)) & (clickCount >= 2) & (affection >= girl_cost) & (not (jenniferAndBecky.got)):
-                jenniferAndBecky.got = True
-                affection -= girl_cost
-                girl_cost *= 2.5
-                affectionMultiplier = affectionMultiplier*jenniferAndBecky.multiplier
-                girl_bought += 1
+            if (game.girl_to_buy[0].isOver(pos)) & (clickCount >= 2) & (game.affection >= game.girl_cost) & (not (game.girl_to_buy[0].got)):
+                game.girl_to_buy[0].got = True
+                game.affection -= game.girl_cost
+                game.girl_cost *= 2.5
+                affectionMultiplier = game.affectionMultiplier*game.girl_to_buy[0].multiplier
+                game.girl_bought += 1
                 drawLickr()
                 drawBorder()
-
+                
+        # Changes tabs to buy in Amazing app
+        if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "amazing")):
+            if (not game.toy_tab) & toys_button.isOver(pos):
+                game.toy_tab = True
+                drawAmazing(game.toy_tab)
+            elif (game.toy_tab) & gifts_button.isOver(pos):
+                game.toy_tab = False
+                drawAmazing(game.toy_tab)
+            if ((game.toy_tab) & (buy_button.isOver(pos)) & (game.affection >= game.auto_like_price[0])):
+                game.auto_like[0] += 1
+                game.affection -= game.auto_like_price[0]
+                game.auto_like_price[0] = int(np.ceil(1.75*game.auto_like_price[0]))
+                drawAmazing(game.toy_tab)
+                
 pygame.quit()
 quit()
