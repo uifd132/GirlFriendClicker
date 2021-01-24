@@ -2,7 +2,7 @@ import pygame
 import numpy as np
 import time
 from classes import button
-from girl_generator import girlGen
+from gameSave import gameState
 
 pygame.init()
 print("Game loading lol if u see this ur a gay terminal user lol")
@@ -23,8 +23,6 @@ pygame.display.set_caption("Girlfriend Clicker: The Game")
 black = (0,0,0)
 
 # Creates the int for the score and the gf multiplier
-affectionMultiplier = 1
-affection = 0
 
 # Images load here
 border = pygame.image.load('images/apps/screen.png')
@@ -45,13 +43,13 @@ display_amazing = pygame.image.load('images/amazing/display.png')
 auto_like_im = pygame.image.load('images/amazing/auto_like.png')
 buy = pygame.image.load('images/amazing/buy.png')
 
-
+game = gameState()
 
 # Draws the screen and objects
 def drawBorder():
     win.blit(border, (0,0))
     win.blit(notificationBar, (0,0))
-    drawText(win,str(affection),23,111,116,"left")
+    drawText(win,str(game.affection),23,111,116,"left")
     drawText(win,currentTime,23,41,116,"center")
     pygame.display.update()
 
@@ -84,8 +82,8 @@ def drawAmazing(toys_on):
         win.blit(auto_like_im, (77,260))
         drawText(win,"Like-Bot", 30, 220, 268, "center")
         win.blit(buy, (163,295))
-        drawText(win, str(auto_like_price[0]), 20, 400, 268, "center")
-        drawText(win, str(auto_like[0]), 20, 400, 300, "center")
+        drawText(win, str(game.auto_like_price[0]), 20, 400, 268, "center")
+        drawText(win, str(game.auto_like[0]), 20, 400, 300, "center")
     win.blit(display_amazing, (0,232))
     drawBorder()
 
@@ -95,9 +93,9 @@ def drawMessages():
 
 def drawLickr():
     win.blit(lickrBackground, (0,143))
-    if not girl_to_buy[0].got:
-        girl_to_buy[0].drawGirl(win)
-        drawText(win,girl_to_buy[0].name+": "+str(girl_cost),30,300,800,"center")
+    if not game.girl_to_buy[0].got:
+        game.girl_to_buy[0].drawGirl(win)
+        drawText(win,game.girl_to_buy[0].name+": "+str(game.girl_cost),30,300,800,"center")
     drawBorder()
 
 def clearScreen():
@@ -119,19 +117,10 @@ buy_button = button(163,295,123,38)
 
 #Initialize
 wallpaper = homeScreen
-toy_tab = False
 currentScreen = "home"
 clickCount = 0
-girl_cost = 100
-girl_bought = 0
 time_ch = 0
 money_ch = 0
-auto_clicker = 0
-auto_like = [0]
-auto_like_price = [20]
-girl_to_buy = []
-for i in np.arange(3):
-    girl_to_buy.append(girlGen(girl_bought))    
     
 drawHomeScreen()
 
@@ -151,12 +140,12 @@ while running:
         money_ch += dt
         
         # AutoMoney
-        if money_ch >= 500:
-            affection += auto_like[0]
+        if money_ch >= 1000:
+            game.affection += game.auto_like[0]
             money_ch = 0
             drawBorder()
         
-        if time_ch > 1000:
+        if time_ch > 5000:
             t = time.localtime()
             currentTime = time.strftime("%I:%M", t)
             drawBorder()
@@ -169,11 +158,11 @@ while running:
                 drawHomeScreen()
                 clickCount = 0
                 currentScreen = "home"
-                toy_tab = False
+                game.toy_tab = False
                 
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "home")):
             if amazing.isOver(pos):
-                drawAmazing(toy_tab)
+                drawAmazing(game.toy_tab)
                 currentScreen = "amazing"
 
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "home")):
@@ -190,34 +179,34 @@ while running:
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "messages")):
             clickCount +=1
             if messagesButton.isOver(pos) & (clickCount >= 2):
-                affection += int(np.floor(affectionMultiplier))
+                game.affection += int(np.floor(game.affectionMultiplier))
                 drawBorder()
 
         # Buys new girlfriend in Lickr
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "lickr")):
             clickCount +=1
-            if (girl_to_buy[0].isOver(pos)) & (clickCount >= 2) & (affection >= girl_cost) & (not (girl_to_buy[0].got)):
-                girl_to_buy[0].got = True
-                affection -= girl_cost
-                girl_cost *= 2.5
-                affectionMultiplier = affectionMultiplier*girl_to_buy[0].multiplier
-                girl_bought += 1
+            if (game.girl_to_buy[0].isOver(pos)) & (clickCount >= 2) & (game.affection >= game.girl_cost) & (not (game.girl_to_buy[0].got)):
+                game.girl_to_buy[0].got = True
+                game.affection -= game.girl_cost
+                game.girl_cost *= 2.5
+                affectionMultiplier = game.affectionMultiplier*game.girl_to_buy[0].multiplier
+                game.girl_bought += 1
                 drawLickr()
                 drawBorder()
                 
         # Changes tabs to buy in Amazing app
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "amazing")):
-            if (not toy_tab) & toys_button.isOver(pos):
-                toy_tab = True
-                drawAmazing(toy_tab)
-            elif (toy_tab) & gifts_button.isOver(pos):
-                toy_tab = False
-                drawAmazing(toy_tab)
-            if ((toy_tab) & (buy_button.isOver(pos)) & (affection >= auto_like_price[0])):
-                auto_like[0] += 1
-                affection -= auto_like_price[0]
-                auto_like_price[0] = int(np.ceil(1.75*auto_like_price[0]))
-                drawAmazing(toy_tab)
+            if (not game.toy_tab) & toys_button.isOver(pos):
+                game.toy_tab = True
+                drawAmazing(game.toy_tab)
+            elif (game.toy_tab) & gifts_button.isOver(pos):
+                game.toy_tab = False
+                drawAmazing(game.toy_tab)
+            if ((game.toy_tab) & (buy_button.isOver(pos)) & (game.affection >= game.auto_like_price[0])):
+                game.auto_like[0] += 1
+                game.affection -= game.auto_like_price[0]
+                game.auto_like_price[0] = int(np.ceil(1.75*game.auto_like_price[0]))
+                drawAmazing(game.toy_tab)
                 
 pygame.quit()
 quit()
