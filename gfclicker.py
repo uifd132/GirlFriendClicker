@@ -189,7 +189,7 @@ while running:
                 game.girl_to_buy[0].got = True
                 game.affection -= game.girl_cost
                 game.girl_cost *= 2.5
-                affectionMultiplier = game.affectionMultiplier*game.girl_to_buy[0].multiplier
+                game.affectionMultiplier = game.affectionMultiplier*game.girl_to_buy[0].multiplier
                 game.girl_bought += 1
                 drawLickr()
                 drawBorder()
@@ -205,7 +205,7 @@ while running:
             if ((game.toy_tab) & (buy_button.isOver(pos)) & (game.affection >= game.auto_like_price[0])):
                 game.auto_like[0] += 1
                 game.affection -= game.auto_like_price[0]
-                game.auto_like_price[0] = int(np.ceil(1.75*game.auto_like_price[0]))
+                game.auto_like_price[0] = int(np.ceil(1.567*game.auto_like_price[0]))
                 drawAmazing(game.toy_tab)
                 
 pygame.quit()
