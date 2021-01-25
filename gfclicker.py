@@ -49,7 +49,7 @@ buy = pygame.image.load('images/amazing/buy.png')
 if path.exists("profile.gf_save"):
     fileload = pickle.load(open("profile.gf_save","rb"))
     game = fileload[0]
-    girl_to_buy = np.asarray(fileload[1:])[0,:].tolist()
+    girl_to_buy = fileload[1]
 else:
     game = gameState()
     girl_to_buy = []
