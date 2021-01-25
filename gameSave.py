@@ -11,6 +11,3 @@ class gameState:
         self.auto_clicker = 0
         self.auto_like = [0]
         self.auto_like_price = [20]
-        self.girl_to_buy = []
-        for i in np.arange(3):
-            self.girl_to_buy.append(girlGen(self.girl_bought))   

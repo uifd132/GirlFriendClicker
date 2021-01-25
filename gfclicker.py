@@ -3,6 +3,10 @@ import numpy as np
 import time
 from classes import button
 from gameSave import gameState
+import os.path
+from os import path
+from girl_generator import girlGen
+import pickle
 
 pygame.init()
 print("Game loading lol if u see this ur a gay terminal user lol")
@@ -43,7 +47,14 @@ display_amazing = pygame.image.load('images/amazing/display.png')
 auto_like_im = pygame.image.load('images/amazing/auto_like.png')
 buy = pygame.image.load('images/amazing/buy.png')
 
-game = gameState()
+if path.exists("profile.gf_save"):
+    game = pickle.load(open("profile.gf_save","rb"))
+    girl_to_buy = pickle.load(open("gtb.gf_save","rb"))
+else:
+    game = gameState()
+    girl_to_buy = []
+    for i in np.arange(3):
+        girl_to_buy.append(girlGen(game.girl_bought))   
 
 # Draws the screen and objects
 def drawBorder():
@@ -93,9 +104,9 @@ def drawMessages():
 
 def drawLickr():
     win.blit(lickrBackground, (0,143))
-    if not game.girl_to_buy[0].got:
-        game.girl_to_buy[0].drawGirl(win)
-        drawText(win,game.girl_to_buy[0].name+": "+str(game.girl_cost),30,300,800,"center")
+    if not girl_to_buy[0].got:
+        girl_to_buy[0].drawGirl(win)
+        drawText(win,girl_to_buy[0].name+": "+str(game.girl_cost),30,300,800,"center")
     drawBorder()
 
 def clearScreen():
@@ -185,11 +196,11 @@ while running:
         # Buys new girlfriend in Lickr
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "lickr")):
             clickCount +=1
-            if (game.girl_to_buy[0].isOver(pos)) & (clickCount >= 2) & (game.affection >= game.girl_cost) & (not (game.girl_to_buy[0].got)):
-                game.girl_to_buy[0].got = True
+            if (girl_to_buy[0].isOver(pos)) & (clickCount >= 2) & (game.affection >= game.girl_cost) & (not (girl_to_buy[0].got)):
+                girl_to_buy[0].got = True
                 game.affection -= game.girl_cost
                 game.girl_cost *= 2.5
-                game.affectionMultiplier = game.affectionMultiplier*game.girl_to_buy[0].multiplier
+                game.affectionMultiplier = game.affectionMultiplier*girl_to_buy[0].multiplier
                 game.girl_bought += 1
                 drawLickr()
                 drawBorder()
@@ -208,5 +219,7 @@ while running:
                 game.auto_like_price[0] = int(np.ceil(1.567*game.auto_like_price[0]))
                 drawAmazing(game.toy_tab)
                 
+pickle.dump(game,open( "profile.gf_save", "wb" ))
+pickle.dump(girl_to_buy,open( "gtb.gf_save", "wb" ))
 pygame.quit()
 quit()

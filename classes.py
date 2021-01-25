@@ -1,5 +1,6 @@
 girlWidth = 500
 girlHeight = 500
+import pygame
 
 # Creates, draws, and determines if the cursor is over app
 class button:
@@ -31,7 +32,7 @@ class girl:
 
     def drawGirl(self,win):
         if not self.got:
-            win.blit(self.image,(50,225))
+            win.blit(pygame.image.load(self.image),(50,225))
 
     def isOver(self,pos):
         if pos[0] > 50 and pos[0] < 50 + girlWidth:
