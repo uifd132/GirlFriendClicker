@@ -20,3 +20,7 @@ Home = 127x107 (234,839)
 I think Lickr app should have two buttons on the sides to scroll between girls
 There should be a list of girls that the buttons scroll through and each girl
 should have their own description detailing what they do and how they effect your clicks
+
+amazing tabs
+gifts at (153,174)
+toys at (313,174)
