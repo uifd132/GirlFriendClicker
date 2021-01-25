@@ -3,7 +3,6 @@ import numpy as np
 import time
 from classes import button
 from gameSave import gameState
-import os.path
 from os import path
 from girl_generator import girlGen
 import pickle
@@ -48,8 +47,9 @@ auto_like_im = pygame.image.load('images/amazing/auto_like.png')
 buy = pygame.image.load('images/amazing/buy.png')
 
 if path.exists("profile.gf_save"):
-    game = pickle.load(open("profile.gf_save","rb"))
-    girl_to_buy = pickle.load(open("gtb.gf_save","rb"))
+    fileload = pickle.load(open("profile.gf_save","rb"))
+    game = fileload[0]
+    girl_to_buy = np.asarray(fileload[1:])[0,:].tolist()
 else:
     game = gameState()
     girl_to_buy = []
@@ -219,7 +219,6 @@ while running:
                 game.auto_like_price[0] = int(np.ceil(1.567*game.auto_like_price[0]))
                 drawAmazing(game.toy_tab)
                 
-pickle.dump(game,open( "profile.gf_save", "wb" ))
-pickle.dump(girl_to_buy,open( "gtb.gf_save", "wb" ))
+pickle.dump([game,girl_to_buy],open( "profile.gf_save", "wb" ))
 pygame.quit()
 quit()
