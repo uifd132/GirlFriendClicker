@@ -3,9 +3,10 @@ import numpy as np
 import time
 from classes import button
 from gameSave import gameState
+from text_generator import textGen
 
 pygame.init()
-print("Game loading lol if u see this ur a gay terminal user lol")
+print("Game loading lol if u see this ur a straight terminal user lol")
 
 # Important variables
 screenWidth = 600
@@ -89,6 +90,7 @@ def drawAmazing(toys_on):
 
 def drawMessages():
     win.blit(messagesBackground, (0,143))
+    drawText(win,textGen(),22,300,730,"center")
     drawBorder()
 
 def drawLickr():
