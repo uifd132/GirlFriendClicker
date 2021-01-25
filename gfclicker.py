@@ -90,7 +90,6 @@ def drawAmazing(toys_on):
 
 def drawMessages():
     win.blit(messagesBackground, (0,143))
-    drawText(win,textGen(),22,300,730,"center")
     drawBorder()
 
 def drawLickr():
@@ -183,6 +182,7 @@ while running:
             if messagesButton.isOver(pos) & (clickCount >= 2):
                 game.affection += int(np.floor(game.affectionMultiplier))
                 drawBorder()
+                pygame.display.update()
 
         # Buys new girlfriend in Lickr
         if ((event.type == pygame.MOUSEBUTTONDOWN) & (pygame.mouse.get_pressed()[0]) & (currentScreen == "lickr")):
